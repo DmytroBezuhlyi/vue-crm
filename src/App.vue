@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import materialize from 'materialize-css';
 import EmptyLayout from '@/layouts/EmptyLayout';
 import MainLayout from '@/layouts/MainLayout';
 
@@ -19,9 +18,6 @@ export default {
     layout() {
       return `${this.$route.meta.layout || 'empty'}-layout`
     }
-  },
-  mounted() {
-    materialize.AutoInit();
   }
 }
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <ul class="sidenav app-sidenav open">
+  <ul
+      class="sidenav app-sidenav"
+      :class="{open: value}"
+  >
     <router-link
         tag="li"
         active-class="active"
@@ -16,6 +19,7 @@
 <script>
 export default {
   name: "SideBar",
+  props: ['value'],
   data: () => ({
     links: [
       {title: 'Invoice', url: '/', exact: true},
