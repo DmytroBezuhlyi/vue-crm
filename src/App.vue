@@ -1,13 +1,25 @@
 <template>
   <div id="app">
-    <router-view/>
+    <component :is="layout">
+      <router-view/>
+    </component>
   </div>
 </template>
 
 <script>
 import materialize from 'materialize-css';
+import EmptyLayout from '@/layouts/EmptyLayout';
+import MainLayout from '@/layouts/MainLayout';
 
 export default {
+  components: {
+    EmptyLayout, MainLayout
+  },
+  computed: {
+    layout() {
+      return `${this.$route.meta.layout || 'empty'}-layout`
+    }
+  },
   mounted() {
     materialize.AutoInit();
   }
