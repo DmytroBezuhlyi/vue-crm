@@ -40,19 +40,19 @@
 
     <ul class="sidenav app-sidenav open">
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Счет</a>
+        <a href="#" class="waves-effect waves-orange pointer">Invoice</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">История</a>
+        <a href="#" class="waves-effect waves-orange pointer">History</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Планирование</a>
+        <a href="#" class="waves-effect waves-orange pointer">Planning</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Новая запись</a>
+        <a href="#" class="waves-effect waves-orange pointer">New Entry</a>
       </li>
       <li>
-        <a href="#" class="waves-effect waves-orange pointer">Категории</a>
+        <a href="#" class="waves-effect waves-orange pointer">Categories</a>
       </li>
     </ul>
 
