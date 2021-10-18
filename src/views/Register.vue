@@ -57,7 +57,7 @@
 
         <p class="center">
           Have an account?
-          <a href="/">Sign In!</a>
+          <router-link to="/login">Sign In!</router-link>
         </p>
       </div>
     </form>
@@ -82,7 +82,7 @@ export default {
     agree: {checked: v => v}
   },
   methods: {
-    onsubmit() {
+    async onsubmit() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
@@ -94,9 +94,10 @@ export default {
         name: this.name
       }
 
-      console.log(formData);
-
-      this.$router.push('/');
+      try {
+        await this.$store.dispatch('registration', formData);
+        await this.$router.push('/');
+      } catch (err) {}
     }
   }
 }

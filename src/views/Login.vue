@@ -77,9 +77,7 @@ export default {
       try {
         await this.$store.dispatch('login', formData);
         await this.$router.push('/');
-      } catch (err) {
-        alert(err);
-      }
+      } catch (err) {}
     }
   },
   mounted() {
