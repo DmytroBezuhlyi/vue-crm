@@ -5,27 +5,50 @@
         <h4>Edit</h4>
       </div>
 
-      <form>
+      <form @submit.prevent="onsubmit">
         <div class="input-field">
-          <select>
-            <option>Category</option>
+          <select ref="select" v-model="current">
+            <option
+                v-for="c of categories"
+                :key="c.id"
+                :value="c.id"
+            >
+              {{ c.title }}
+            </option>
           </select>
           <label>Select category</label>
         </div>
 
         <div class="input-field">
-          <input type="text" id="name">
-          <label for="name">Title</label>
-          <span class="helper-text invalid">TITLE</span>
+          <input
+              id="title"
+              type="text"
+              v-model="$v.title.$model"
+              :class="{invalid: $v.title.$dirty && !$v.title.required}"
+          >
+          <label for="title">Title</label>
+          <span
+              class="helper-text invalid"
+              v-if="$v.title.$dirty && !$v.title.required"
+          >
+            Enter the category title
+          </span>
         </div>
 
         <div class="input-field">
           <input
-              id="limit"
+              id="min-limit"
               type="number"
+              v-model.number="$v.limit.$model"
+              :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
           >
-          <label for="limit">Limit</label>
-          <span class="helper-text invalid">LIMIT</span>
+          <label for="min-limit">Limit</label>
+          <span
+              class="helper-text invalid"
+              v-if="$v.limit.$dirty && !$v.limit.minValue"
+          >
+            Minimal value is {{ $v.limit.$params.minValue.min }}
+          </span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
@@ -38,8 +61,71 @@
 </template>
 
 <script>
+import {minValue, required} from "vuelidate/lib/validators";
+
 export default {
-name: "CategoryEdit"
+  name: "CategoryEdit",
+  props: {
+    categories: {
+      type: Array,
+      required: true
+    }
+  },
+  data: () => ({
+    select: null,
+    title: '',
+    limit: 100,
+    current: null,
+  }),
+  validations: {
+    title: {required},
+    limit: {required, minValue: minValue(100)},
+  },
+  methods: {
+    async onsubmit() {
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
+      }
+
+      const categoryData = {
+        id: this.current,
+        title: this.title,
+        limit: this.limit,
+      };
+
+      try {
+        await this.$store.dispatch('updateCategory', categoryData);
+
+        this.$message('Category was successfully updated');
+        this.$emit('updated', categoryData)
+      } catch (err) {
+
+      }
+    },
+  },
+  watch: {
+    current(catID) {
+      const {title, limit} = this.categories.find(c => c.id === catID);
+      this.title = title;
+      this.limit = limit;
+    }
+  },
+  created() {
+    const {id, title, limit} = this.categories[0];
+    this.current = id;
+    this.title = title;
+    this.limit = limit;
+  },
+  mounted() {
+    M.updateTextFields();
+    this.select = M.FormSelect.init(this.$refs.select);
+  },
+  beforeDestroy() {
+    if (this.select && this.select.destroy) {
+      this.select.destroy;
+    }
+  }
 }
 </script>
 
