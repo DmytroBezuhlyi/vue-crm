@@ -22,7 +22,7 @@ export default {
   props: ['value'],
   data: () => ({
     links: [
-      {title: 'Invoice', url: '/', exact: true},
+      {title: 'Home', url: '/', exact: true},
       {title: 'History', url: '/history'},
       {title: 'Planning', url: '/planning'},
       {title: 'New Record', url: '/record'},
