@@ -1,22 +1,25 @@
 <template>
-  <div class="app-main-layout">
-    <NavBar @click="isOpen = !isOpen"/>
+  <div>
+    <Loader v-if="loading"/>
+    <div class="app-main-layout" v-else>
+      <NavBar @click="isOpen = !isOpen"/>
 
-    <SideBar v-model="isOpen"/>
+      <SideBar v-model="isOpen"/>
 
-    <main
-        class="app-content"
-        :class="{full: !isOpen}"
-    >
-      <div class="app-page">
-        <router-view/>
+      <main
+          class="app-content"
+          :class="{full: !isOpen}"
+      >
+        <div class="app-page">
+          <router-view/>
+        </div>
+      </main>
+
+      <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue" href="#">
+          <i class="large material-icons">add</i>
+        </a>
       </div>
-    </main>
-
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large blue" href="#">
-        <i class="large material-icons">add</i>
-      </a>
     </div>
   </div>
 </template>
@@ -27,7 +30,15 @@ import SideBar from "@/components/app/SideBar";
 export default {
   components: {SideBar, NavBar},
   data: () => ({
-    isOpen: true
-  })
+    isOpen: true,
+    loading: true
+  }),
+  async mounted() {
+    if (!Object.keys(this.$store.getters.info).length) {
+      await this.$store.dispatch('fetchInfo');
+    }
+
+    this.loading = false;
+  },
 }
 </script>

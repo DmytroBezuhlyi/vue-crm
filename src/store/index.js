@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './auth';
+import auth from '@/store/auth';
+import info from "@/store/info";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    error: null
+    error: null,
   },
   mutations: {
     setError(state, err) {
@@ -22,8 +23,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    async fetchCurrency() {
+      const key = process.env.VUE_APP_FIXER;
+      const res = await fetch(`http://data.fixer.io/api/latest?access_key=${key}&format=1&symbols=USD,EUR,UAH`)
+      return await res.json();
+    },
   },
   modules: {
-    auth
+    auth, info
   }
 })
