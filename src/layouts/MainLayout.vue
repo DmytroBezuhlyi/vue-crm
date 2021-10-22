@@ -26,6 +26,7 @@
 <script>
 import NavBar from "@/components/app/NavBar";
 import SideBar from "@/components/app/SideBar";
+import messages from "@/utils/messages";
 
 export default {
   components: {SideBar, NavBar},
@@ -33,6 +34,16 @@ export default {
     isOpen: true,
     loading: true
   }),
+  computed: {
+    error() {
+      return this.$store.getters.getError;
+    }
+  },
+  watch: {
+    error(err) {
+      this.$error(messages[err.code] || 'Something goes wrong...');
+    }
+  },
   async mounted() {
     if (!Object.keys(this.$store.getters.info).length) {
       await this.$store.dispatch('fetchInfo');
