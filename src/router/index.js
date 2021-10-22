@@ -18,7 +18,7 @@ const routes = [
     component: () => import('@/views/Categories')
   },
   {
-    path: '/detail-record',
+    path: '/detail/:id',
     name: 'DetailRecord',
     meta: {layout: 'main', auth: true},
     component: () => import('@/views/DetailRecord')
