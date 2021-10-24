@@ -5,7 +5,7 @@
     </div>
 
     <div class="history-chart">
-      <canvas></canvas>
+      <canvas ref="canvas"></canvas>
     </div>
 
     <Loader v-if="loading"/>
@@ -31,27 +31,66 @@
 
 <script>
 import HistoryTable from "@/components/HistoryTable";
-import pagination from "@/mixins/pagination.mixin"
+import pagination from "@/mixins/pagination.mixin";
+import {Pie} from "vue-chartjs"
 
 export default {
   name: "History",
   components: {HistoryTable},
-  mixins: [pagination],
+  mixins: [pagination, Pie],
   data: () => ({
     loading: true,
     records: [],
   }),
+  methods: {
+    setup(categories) {
+      this.paginationSetup(this.records.map(record => {
+        return {
+          ...record,
+          categoryName: categories.find(cat => cat.id === record.categoryID).title,
+          typeClass: record.type === 'income' ? 'green' : 'red',
+          typeText: record.type === 'income' ? 'Income' : 'Outcome',
+        };
+      }));
+    }
+  },
   async mounted() {
     this.records = await this.$store.dispatch('fetchRecords');
     const categories = await this.$store.dispatch('fetchCategories');
-    this.paginationSetup(this.records.map(record => {
-      return {
-        ...record,
-        categoryName: categories.find(cat => cat.id === record.categoryID).title,
-        typeClass: record.type === 'income' ? 'green' : 'red',
-        typeText: record.type === 'income' ? 'Income' : 'Outcome',
-      };
-    }));
+
+    this.setup(categories);
+
+    this.renderChart({
+      labels: categories.map(cat => cat.title),
+      datasets: [{
+        label: 'Outcomes by Category',
+        data: categories.map(cat => {
+          return this.records.reduce((t, rec) => {
+            if (rec.categoryID === cat.id && rec.type === 'outcome') {
+              t += +rec.amount;
+            }
+            return t;
+          }, 0);
+        }),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    }, {responsive: true,});
 
     this.loading = false;
   },
