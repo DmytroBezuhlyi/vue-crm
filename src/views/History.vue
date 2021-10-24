@@ -43,8 +43,6 @@ export default {
       };
     });
 
-    console.log(this.records)
-
     this.loading = false;
   },
 }

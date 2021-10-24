@@ -37,7 +37,6 @@ export default {
   methods: {
     addNewCat(category) {
       this.categories.push(category);
-      console.log(this.categories)
     },
     updateCategories(category) {
       const idx = this.categories.findIndex(c => c.id === category.id);
