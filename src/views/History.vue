@@ -15,33 +15,43 @@
     </p>
 
     <section v-else>
-      <HistoryTable :records="records"/>
+      <HistoryTable :records="items"/>
+
+      <Pagination
+          v-model="page"
+          :pageCount="pageCount"
+          :clickHandler="paginationClickHandler"
+          :prevText="'Previous'"
+          :nextText="'Next'"
+          :containerClass="'pagination'"
+      />
     </section>
   </div>
 </template>
 
 <script>
 import HistoryTable from "@/components/HistoryTable";
+import pagination from "@/mixins/pagination.mixin"
 
 export default {
   name: "History",
   components: {HistoryTable},
+  mixins: [pagination],
   data: () => ({
     loading: true,
     records: [],
-    categories: [],
   }),
   async mounted() {
-    const records = await this.$store.dispatch('fetchRecords');
-    this.categories = await this.$store.dispatch('fetchCategories');
-    this.records = records.map(record => {
+    this.records = await this.$store.dispatch('fetchRecords');
+    const categories = await this.$store.dispatch('fetchCategories');
+    this.paginationSetup(this.records.map(record => {
       return {
         ...record,
-        categoryName: this.categories.find(cat => cat.id === record.categoryID).title,
+        categoryName: categories.find(cat => cat.id === record.categoryID).title,
         typeClass: record.type === 'income' ? 'green' : 'red',
         typeText: record.type === 'income' ? 'Income' : 'Outcome',
       };
-    });
+    }));
 
     this.loading = false;
   },
