@@ -26,14 +26,14 @@
 
           <ul id='dropdown' class='dropdown-content'>
             <li>
-              <a href="#" class="black-text">
-                <i class="material-icons">account_circle</i>Профиль
-              </a>
+              <router-link to="/profile" class="black-text">
+                <i class="material-icons">account_circle</i>{{ 'Profile' | locale }}
+              </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
               <a href="#" class="black-text" @click.prevent="logout">
-                <i class="material-icons">assignment_return</i>Выйти
+                <i class="material-icons">assignment_return</i>{{ 'Log out' | locale }}
               </a>
             </li>
           </ul>

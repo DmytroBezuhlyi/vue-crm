@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Edit</h4>
+        <h4>{{ 'Edit' | locale }}</h4>
       </div>
 
       <form @submit.prevent="onsubmit">
@@ -16,7 +16,7 @@
               {{ c.title }}
             </option>
           </select>
-          <label>Select category</label>
+          <label>{{ 'Select Category' | locale }}</label>
         </div>
 
         <div class="input-field">
@@ -26,12 +26,12 @@
               v-model="$v.title.$model"
               :class="{invalid: $v.title.$dirty && !$v.title.required}"
           >
-          <label for="title">Title</label>
+          <label for="title">{{ 'Title' | locale }}</label>
           <span
               class="helper-text invalid"
               v-if="$v.title.$dirty && !$v.title.required"
           >
-            Enter the category title
+            {{ 'Enter the category title' | locale }}
           </span>
         </div>
 
@@ -42,17 +42,17 @@
               v-model.number="$v.limit.$model"
               :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
           >
-          <label for="min-limit">Limit</label>
+          <label for="min-limit">{{ 'Limit' | locale }}</label>
           <span
               class="helper-text invalid"
               v-if="$v.limit.$dirty && !$v.limit.minValue"
           >
-            Minimal value is {{ $v.limit.$params.minValue.min }}
+            {{ 'Minimal value is' | locale }} {{ $v.limit.$params.minValue.min }}
           </span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Update
+          {{ 'Update' | locale }}
           <i class="material-icons right">send</i>
         </button>
       </form>

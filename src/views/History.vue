@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Record History</h3>
+      <h3>{{ 'History' | locale }}</h3>
     </div>
 
     <div class="history-chart">
@@ -21,8 +21,8 @@
           v-model="page"
           :pageCount="pageCount"
           :clickHandler="paginationClickHandler"
-          :prevText="'Previous'"
-          :nextText="'Next'"
+          :prevText="prev"
+          :nextText="next"
           :containerClass="'pagination'"
       />
     </section>
@@ -33,6 +33,7 @@
 import HistoryTable from "@/components/HistoryTable";
 import pagination from "@/mixins/pagination.mixin";
 import {Pie} from "vue-chartjs"
+import localeFilter from "@/filters/localization.filter";
 
 export default {
   name: "History",
@@ -41,6 +42,8 @@ export default {
   data: () => ({
     loading: true,
     records: [],
+    prev: '',
+    next: ''
   }),
   methods: {
     setup(categories) {
@@ -52,6 +55,9 @@ export default {
           typeText: record.type === 'income' ? 'Income' : 'Outcome',
         };
       }));
+
+      this.prev = localeFilter('Previous');
+      this.next = localeFilter('Next');
     }
   },
   async mounted() {

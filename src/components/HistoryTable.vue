@@ -2,12 +2,12 @@
   <table>
     <thead>
     <tr>
-      <th>#</th>
-      <th>Sum</th>
-      <th>Date</th>
-      <th>Category</th>
-      <th>Type</th>
-      <th>Open</th>
+      <th>{{ '#' | locale }}</th>
+      <th>{{ 'Sum' | locale }}</th>
+      <th>{{ 'Date' | locale }}</th>
+      <th>{{ 'Category' | locale }}</th>
+      <th>{{ 'Type' | locale }}</th>
+      <th>{{ 'Open' | locale }}</th>
     </tr>
     </thead>
 
@@ -22,7 +22,7 @@
             class="white-text badge"
             :class="record.typeClass"
         >
-          {{ record.typeText }}
+          {{ record.typeText | locale }}
         </span>
       </td>
       <td>

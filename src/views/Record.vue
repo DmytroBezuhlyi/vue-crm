@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>New Record</h3>
+      <h3>{{ 'New Record' | locale }}</h3>
     </div>
 
     <Loader v-if="loading"/>
@@ -25,7 +25,7 @@
             {{ c.title }}
           </option>
         </select>
-        <label>Select Category</label>
+        <label>{{ 'Select Category' | locale }}</label>
       </div>
 
       <p>
@@ -37,7 +37,7 @@
               value="income"
               v-model="type"
           />
-          <span>Income</span>
+          <span>{{ 'Income' | locale }}</span>
         </label>
       </p>
 
@@ -50,7 +50,7 @@
               value="outcome"
               v-model="type"
           />
-          <span>Outcome</span>
+          <span>{{ 'Outcome' | locale }}</span>
         </label>
       </p>
 
@@ -61,12 +61,12 @@
             v-model.number="$v.amount.$model"
             :class="{invalid: $v.amount.$dirty && !$v.amount.minValue}"
         >
-        <label for="amount">Sum</label>
+        <label for="amount">{{ 'Sum' | locale }}</label>
         <span
             class="helper-text invalid"
             v-if="$v.amount.$dirty && !$v.amount.minValue"
         >
-          amount password
+          {{ 'Amount' | locale }}
         </span>
       </div>
 
@@ -77,17 +77,17 @@
             v-model="$v.description.$model"
             :class="{invalid: $v.description.$dirty && !$v.description.required}"
         >
-        <label for="description">Description</label>
+        <label for="description">{{ 'Description' | locale }}</label>
         <span
             class="helper-text invalid"
             v-if="$v.description.$dirty && !$v.description.required"
         >
-          description password
+          {{ 'Description' | locale }}
         </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Create
+        {{ 'Create' | locale }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -97,6 +97,7 @@
 <script>
 import {minValue, required} from "vuelidate/lib/validators";
 import {mapGetters} from "vuex";
+import localizationFilter from "@/filters/localization.filter";
 
 export default {
   name: "Record",
@@ -140,7 +141,7 @@ export default {
         this.amount = 1;
         this.description = '';
       } else {
-        this.$message(`Not enough money on your account (${this.amount - this.info.bill})`);
+        this.$message(`${localizationFilter('Not enough money on your account')} ${this.amount - this.info.bill}`);
       }
     },
   },

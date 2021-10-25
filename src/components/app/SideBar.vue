@@ -17,16 +17,18 @@
 </template>
 
 <script>
+import localeFilter from "@/filters/localization.filter";
+
 export default {
   name: "SideBar",
   props: ['value'],
   data: () => ({
     links: [
-      {title: 'Home', url: '/', exact: true},
-      {title: 'History', url: '/history'},
-      {title: 'Planning', url: '/planning'},
-      {title: 'New Record', url: '/record'},
-      {title: 'Categories', url: '/categories'},
+      {title: localeFilter('Home'), url: '/', exact: true},
+      {title: localeFilter('History'), url: '/history'},
+      {title: localeFilter('Planning'), url: '/planning'},
+      {title: localeFilter('New Record'), url: '/record'},
+      {title: localeFilter('Categories'), url: '/categories'},
     ],
   })
 }

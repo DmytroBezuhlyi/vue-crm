@@ -4,7 +4,7 @@
     <div class="app-main-layout" v-else>
       <NavBar @click="isOpen = !isOpen"/>
 
-      <SideBar v-model="isOpen"/>
+      <SideBar v-model="isOpen" :key="locale"/>
 
       <main
           class="app-content"
@@ -27,6 +27,7 @@
 import NavBar from "@/components/app/NavBar";
 import SideBar from "@/components/app/SideBar";
 import messages from "@/utils/messages";
+import localizationFilter from "@/filters/localization.filter";
 
 export default {
   components: {SideBar, NavBar},
@@ -37,11 +38,15 @@ export default {
   computed: {
     error() {
       return this.$store.getters.getError;
+    },
+    locale() {
+      return this.$store.getters.info.locale;
     }
   },
   watch: {
     error(err) {
-      this.$error(messages[err.code] || 'Something goes wrong...');
+      const message = messages[err.code];
+      this.$error(localizationFilter(message) || 'Something goes wrong...');
     }
   },
   async mounted() {
