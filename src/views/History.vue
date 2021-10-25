@@ -39,6 +39,11 @@ export default {
   name: "History",
   components: {HistoryTable},
   mixins: [pagination, Pie],
+  metaInfo() {
+    return {
+      title: this.$title('History'),
+    }
+  },
   data: () => ({
     loading: true,
     records: [],

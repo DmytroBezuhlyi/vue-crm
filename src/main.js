@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {Vuelidate} from "vuelidate";
+import VueMeta from "vue-meta";
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -8,6 +9,7 @@ import currencyFilter from "@/filters/currency.filter";
 import localizationFilter from "@/filters/localization.filter";
 import tooltipDirective from "@/directives/tooltip.directive";
 import messagePlugin from '@/utils/message.plugin';
+import metaTitlePlugin from '@/utils/metaTitle.plugin';
 import Loader from "@/components/app/Loader";
 import Paginate from "vuejs-paginate";
 import './registerServiceWorker'
@@ -23,7 +25,9 @@ Vue.filter('currency', currencyFilter);
 Vue.filter('locale', localizationFilter);
 Vue.directive('tooltip', tooltipDirective);
 Vue.use(Vuelidate);
+Vue.use(VueMeta);
 Vue.use(messagePlugin);
+Vue.use(metaTitlePlugin);
 Vue.component('Loader', Loader);
 Vue.component('Pagination', Paginate);
 

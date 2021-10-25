@@ -30,6 +30,11 @@ import HomeCurrency from "@/components/HomeCurrency";
 export default {
   name: 'Home',
   components: {HomeCurrency, HomeBill},
+  metaInfo() {
+    return {
+      title: this.$title('Home'),
+    }
+  },
   data() {
     return {
       loading: true,

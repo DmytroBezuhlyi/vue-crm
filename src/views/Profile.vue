@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Profile</h3>
+      <h3>{{ 'Profile' | locale }}</h3>
     </div>
 
     <form class="form" @submit.prevent="onsubmit">
@@ -12,12 +12,12 @@
             :class="{invalid: $v.name.$dirty && !$v.name.required}"
             v-model="name"
         >
-        <label for="description">Name</label>
+        <label for="description">{{ 'Name' | locale }}</label>
         <span
             class="helper-text invalid"
             v-if="$v.name.$dirty && !$v.name.required"
         >
-          Name
+          {{ 'Name' | locale }}
         </span>
       </div>
 
@@ -47,6 +47,11 @@ import localizationFilter from "@/filters/localization.filter";
 
 export default {
   name: "Profile",
+  metaInfo() {
+    return {
+      title: this.$title('Profile'),
+    }
+  },
   data: () => ({
     name: '',
     locale: '',
