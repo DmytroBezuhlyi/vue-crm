@@ -2,7 +2,7 @@
   <div class="col s12 m6 l4">
     <div class="card light-blue bill-card">
       <div class="card-content white-text">
-        <span class="card-title">Currency Amount</span>
+        <span class="card-title">{{ 'Currency Amount' | locale }}</span>
 
         <p class="currency-line" v-for="curr of currencies" :key="curr">
           <span>{{ getCurrency(curr) | currency(curr) }}</span>

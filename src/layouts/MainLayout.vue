@@ -4,7 +4,7 @@
     <div class="app-main-layout" v-else>
       <NavBar @click="isOpen = !isOpen"/>
 
-      <SideBar v-model="isOpen"/>
+      <SideBar v-model="isOpen" :key="locale"/>
 
       <main
           class="app-content"
@@ -37,6 +37,9 @@ export default {
   computed: {
     error() {
       return this.$store.getters.getError;
+    },
+    locale() {
+      return this.$store.getters.info.locale;
     }
   },
   watch: {

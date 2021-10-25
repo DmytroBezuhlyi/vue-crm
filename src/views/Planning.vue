@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Planning</h3>
+      <h3>{{ 'Planning' | locale }}</h3>
       <h4>{{ info.bill | currency }}</h4>
     </div>
 
