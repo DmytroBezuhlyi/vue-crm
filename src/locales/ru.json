@@ -32,5 +32,7 @@
   "Edit": "Редактировать",
   "The Name is Required!": "Необходимо ввести имя",
   "Error": "Ошибка",
-  "Not enough money on your account": "На вашем счете"
+  "Not enough money on your account": "На вашем счете",
+  "TitleLogin": "Вход",
+  "TitleRegister": "Регистрация"
 }

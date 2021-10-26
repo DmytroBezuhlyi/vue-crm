@@ -33,5 +33,7 @@
   "Record Details": "Record Details",
   "The Name is Required!": "The Name is Required!",
   "Error": "Error",
-  "Not enough money on your account": "Not enough money on your account"
+  "Not enough money on your account": "Not enough money on your account",
+  "TitleLogin": "Sign In",
+  "TitleRegister": "Sign Up"
 }
