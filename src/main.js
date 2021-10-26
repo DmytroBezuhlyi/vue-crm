@@ -12,7 +12,6 @@ import messagePlugin from '@/utils/message.plugin';
 import metaTitlePlugin from '@/utils/metaTitle.plugin';
 import Loader from "@/components/app/Loader";
 import Paginate from "vuejs-paginate";
-import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
 
 import firebase from 'firebase/app';
